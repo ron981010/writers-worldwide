@@ -1,14 +1,12 @@
 // LOCALHOST
-### Get all contacts
+### Get all users
 GET http://localhost:8080/users
 
-
-
-### Get contact by id
+### Get user by id
 GET http://localhost:8080/users/6499386036b2af5416400f59
 
 
-### Create contact
+### Create user
 POST http://localhost:8080/users HTTP/1.1
 content-type: application/json
 
@@ -25,7 +23,7 @@ content-type: application/json
 }
 
 
-### PUT contact
+### PUT user
 PUT http://localhost:8080/users/6499386036b2af5416400f58 HTTP/1.1
 content-type: application/json
 
@@ -40,43 +38,49 @@ content-type: application/json
       "instagram": "emi.poet"
     }
 }
-### DELETE contact
-DELETE http://localhost:8080/contacts/64992a5ddd41a20ff577891b HTTP/1.1
+### DELETE user
+DELETE http://localhost:8080/users/64992a5ddd41a20ff577891b HTTP/1.1
 
 // PRODUCTION Deploy
-### Get all contacts
-GET https://cse341-l3-hu8r.onrender.com/contacts
+### Get all users
+GET https://writers-worlwide.onrender.com/users
 
 
-### Get contact by id
-GET https://cse341-l3-hu8r.onrender.com/contacts/64978d9406610c3276e313aa
+### Get user by id and poem
+GET https://writers-worlwide.onrender.com/users/6499386036b2af5416400f59
 
 
-### Create contact
-POST https://cse341-l3-hu8r.onrender.com/contacts HTTP/1.1
+### Create user
+POST https://writers-worlwide.onrender.com/users HTTP/1.1
 content-type: application/json
 
 {
-    "firstName":"Ashley",
-    "lastName":"Weaver",
-    "email":"aWeaver@test.com",
-    "favoriteColor":"Brown",
-    "birthday":"06/19/2000"
+    "username": "Ronald.acarapi",
+    "fullName": "ronald Acarapi",
+    "email": "bestwritter@example.com",
+    "password": "password123",
+    "biography": "lonely expert on books.",
+    "socialNetworks": {
+      "twitter": "ron_acarapi",
+      "instagram": "ron.poet"
+    }
 }
 
-
-### PUT contact
-PUT https://cse341-l3-hu8r.onrender.com/contacts/64978d9406610c3276e313a9 HTTP/1.1
+### PUT user
+PUT https://writers-worlwide.onrender.com/users/6499386036b2af5416400f58 HTTP/1.1
 content-type: application/json
 
 {
-    "firstName":"Sarah",
-    "lastName":"Birch",
-    "email":"sarahB@gmail.com",
-    "favoriteColor":"Yellow",
-    "birthday":"06/12/20"
+  "username": "emily.sinclair",
+  "fullName": "Emily Sinclair",
+  "email": "emily.sinclair@example.com",
+  "password": "password123",
+  "biography": "Passionate poet and nature lover.",
+  "socialNetworks": {
+    "twitter": "emily_sinclair",
+    "instagram": "emily.poet"
+  }
 }
 
-
-### DELETE contact
-DELETE https://cse341-l3-hu8r.onrender.com/contacts/6497fec2c115c0292058bf81 HTTP/1.1
+### DELETE user
+DELETE https://writers-worlwide.onrender.com/users/64992a5ddd41a20ff577891b HTTP/1.1
