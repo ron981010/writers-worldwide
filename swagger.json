@@ -112,10 +112,22 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "username": {
                   "example": "any"
                 },
-                "content": {
+                "fullName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
+                "biography": {
+                  "example": "any"
+                },
+                "socialNetworks": {
                   "example": "any"
                 }
               }
@@ -125,9 +137,6 @@
         "responses": {
           "204": {
             "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
