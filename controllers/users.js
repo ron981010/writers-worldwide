@@ -11,11 +11,37 @@ const getAllUsers = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
   const userId = new ObjectId(req.params.id);
-  const result = await mongodb.getDb().db().collection('users').find({ _id: userId });
-  result.toArray().then((users) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(users[0]);
-  });
+  
+  try {
+    const user = await mongodb.getDb().db().collection('users').findOne({ _id: userId });
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    const authorName = user.fullName;
+    const poems = await mongodb
+      .getDb()
+      .db()
+      .collection('poems')
+      .find({ author: authorName })
+      .toArray();
+
+    const userData = {
+      _id: user._id,
+      username: user.username,
+      fullName: user.fullName,
+      email: user.email,
+      password: user.password,
+      biography: user.biography,
+      socialNetworks: user.socialNetworks,
+      poems: poems,
+    };
+
+    res.status(200).json(userData);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
 };
 
 const createUser = async (req, res) => {

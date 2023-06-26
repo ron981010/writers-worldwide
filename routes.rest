@@ -1,38 +1,47 @@
 // LOCALHOST
 ### Get all contacts
-GET http://localhost:8080/contacts
+GET http://localhost:8080/users
+
 
 
 ### Get contact by id
-GET http://localhost:8080/contacts/64978d9406610c3276e313aa
+GET http://localhost:8080/users/6499243036b2af5416400f35
 
 
 ### Create contact
-POST http://localhost:8080/contacts HTTP/1.1
+POST http://localhost:8080/users HTTP/1.1
 content-type: application/json
 
 {
-    "firstName":"Ashley",
-    "lastName":"Weaver",
-    "email":"aWeaver@test.com",
-    "favoriteColor":"Brown",
-    "birthday":"06/19/2000"
+    "username": "Ronald.acarapi",
+    "fullName": "ronald Acarapi",
+    "email": "bestwritter@example.com",
+    "password": "password123",
+    "biography": "lonely expert on books.",
+    "socialNetworks": {
+      "twitter": "ron_acarapi",
+      "instagram": "ron.poet"
+    }
 }
 
 
 ### PUT contact
-PUT http://localhost:8080/contacts/64978d9406610c3276e313a9 HTTP/1.1
+PUT http://localhost:8080/users/6499243036b2af5416400f34 HTTP/1.1
 content-type: application/json
 
 {
-    "firstName":"Sarah",
-    "lastName":"Birch",
-    "email":"test@gmail.com",
-    "favoriteColor":"Green",
-    "birthday":"12/12/20"
+    "username": "emily.sinclair",
+    "fullName": "Emily Sinclair",
+    "email": "emily.sinclair2023@example.com",
+    "password": "password123",
+    "biography": "nature lover.",
+    "socialNetworks": {
+      "twitter": "emily_lair",
+      "instagram": "emi.poet"
+    }
 }
 ### DELETE contact
-DELETE http://localhost:8080/contacts/6497fa70a51e24c184e915cd HTTP/1.1
+DELETE http://localhost:8080/contacts/64992a5ddd41a20ff577891b HTTP/1.1
 
 // PRODUCTION Deploy
 ### Get all contacts
