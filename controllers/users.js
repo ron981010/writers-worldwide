@@ -1,5 +1,7 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
+const db = require('../models');
+const User = db.user;
 const passwordUtil = require('../util/passwordComplexityCheck');
 
 const getAllUsers = async (req, res) => {
