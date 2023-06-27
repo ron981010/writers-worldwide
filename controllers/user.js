@@ -4,7 +4,7 @@ const db = require('../models');
 const User = db.user;
 const passwordUtil = require('../util/passwordComplexityCheck');
 
-const getAllUsers = async (req, res) => {
+module.exports.getAllUsers = async (req, res) => {
   try {
     const result = await mongodb.getDb().db().collection('users').find();
     const users = await result.toArray();
@@ -15,7 +15,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const getSingleUser = async (req, res) => {
+module.exports.getSingleUser = async (req, res) => {
   try {
     const userId = new ObjectId(req.params.id);
     const user = await mongodb.getDb().db().collection('users').findOne({ _id: userId });
@@ -49,7 +49,7 @@ const getSingleUser = async (req, res) => {
   }
 };
 
-module.exports.create = async (req, res) => {
+module.exports.createUser = async (req, res) => {
   try {
     if (!req.body.username || !req.body.password) {
       res.status(400).json({ message: 'Content can not be empty!' });
@@ -77,7 +77,7 @@ module.exports.create = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+module.exports.updateUser = async (req, res) => {
   try {
     const userId = new ObjectId(req.params.id);
     const password = req.body.password;
@@ -111,7 +111,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+module.exports.deleteUser = async (req, res) => {
   try {
     const userId = new ObjectId(req.params.id);
     const response = await mongodb.getDb().db().collection('users').remove({ _id: userId }, true);
@@ -126,10 +126,3 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = {
-  getAllUsers,
-  getSingleUser,
-  createUser,
-  updateUser,
-  deleteUser
-};
