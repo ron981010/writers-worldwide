@@ -49,7 +49,7 @@ const getSingleUser = async (req, res) => {
   }
 };
 
-module.exports.createUser = async (req, res) => {
+module.exports.create = async (req, res) => {
   try {
     if (!req.body.username || !req.body.password) {
       res.status(400).json({ message: 'Content can not be empty!' });
