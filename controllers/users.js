@@ -49,6 +49,22 @@ const getSingleUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
+    // Validate request data
+    const schema = Joi.object({
+      username: Joi.string().required(),
+      fullName: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+      biography: Joi.string(),
+      socialNetworks: Joi.object(),
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+      res.status(400).json({ error: error.details[0].message });
+      return;
+    }
+
     const password = req.body.password;
     const passwordCheck = passwordUtil.passwordPass(password);
     if (passwordCheck.error) {
@@ -56,14 +72,17 @@ const createUser = async (req, res) => {
       return;
     }
 
+    // Create user object
     const user = {
       username: req.body.username,
       fullName: req.body.fullName,
       email: req.body.email,
       password: req.body.password,
       biography: req.body.biography,
-      socialNetworks: req.body.socialNetworks
+      socialNetworks: req.body.socialNetworks,
     };
+
+    // Insert user into the database
     const response = await mongodb.getDb().db().collection('users').insertOne(user);
     if (response.acknowledged) {
       res.status(201).json(response);
