@@ -49,7 +49,7 @@ const getSingleUser = async (req, res) => {
   }
 };
 
-const createUser = async (req, res) => {
+module.exports.createUser = async (req, res) => {
   try {
     if (!req.body.username || !req.body.password) {
       res.status(400).json({ message: 'Content can not be empty!' });
@@ -64,12 +64,13 @@ const createUser = async (req, res) => {
     }
 
     const user = new User(req.body);
-    user.save()
+    user
+      .save()
       .then((data) => {
-        res.status(201).json(data);
+        res.status(201).send(data);
       })
       .catch((err) => {
-        res.status(500).json({ message: err.message || 'Some error occurred while creating the user.' });
+        res.status(500).send({ message: err.message || 'Some error occurred while creating the user.' });
       });
   } catch (err) {
     res.status(500).json(err);
