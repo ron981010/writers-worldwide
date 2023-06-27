@@ -10,5 +10,5 @@ const complexityOptions = {
 };
 
 module.exports.passwordPass = (passwordToCheck) => {
-  return passwordComplexity(complexityOptions, 'Password').validate(passwordToCheck);
+  return passwordComplexity(complexityOptions, 'password').validate(passwordToCheck);
 };
