@@ -49,31 +49,28 @@ const getSingleUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const password = req.body.password;
-    const passwordCheck = passwordUtil.passwordPass(password);
-    if (passwordCheck.error) {
-      res.status(400).json({ error: passwordCheck.error });
+    if (!req.body.username || !req.body.password) {
+      res.status(400).json({ message: 'Content can not be empty!' });
       return;
     }
 
-    const user = {
-      username: req.body.username,
-      fullName: req.body.fullName,
-      email: req.body.email,
-      password: req.body.password,
-      biography: req.body.biography,
-      socialNetworks: req.body.socialNetworks
-    };
-
-    const response = await mongodb.getDb().db().collection('users').insertOne(user);
-
-    if (response.acknowledged) {
-      res.status(201).json({ message: 'User created successfully' });
-    } else {
-      res.status(500).json({ error: 'Failed to create user' });
+    const password = req.body.password;
+    const passwordCheck = passwordUtil.passwordPass(password);
+    if (passwordCheck.error) {
+      res.status(400).json({ message: passwordCheck.error });
+      return;
     }
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
+
+    const user = new User(req.body);
+    user.save()
+      .then((data) => {
+        res.status(201).json(data);
+      })
+      .catch((err) => {
+        res.status(500).json({ message: err.message || 'Some error occurred while creating the user.' });
+      });
+  } catch (err) {
+    res.status(500).json(err);
   }
 };
 
