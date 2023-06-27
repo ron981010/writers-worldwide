@@ -82,14 +82,8 @@ module.exports.createUser = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   try {
+    
     const userId = new ObjectId(req.params.id);
-    const password = req.body.password;
-    const passwordCheck = passwordUtil.passwordPass(password);
-    if (passwordCheck.error) {
-      res.status(400).json({ error: passwordCheck.error });
-      return;
-    }
-
     const user = {
       username: req.body.username,
       fullName: req.body.fullName,
@@ -98,19 +92,22 @@ module.exports.updateUser = async (req, res) => {
       biography: req.body.biography,
       socialNetworks: req.body.socialNetworks
     };
+
     const response = await mongodb
       .getDb()
       .db()
       .collection('users')
       .replaceOne({ _id: userId }, user);
+
     console.log(response);
+
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } else {
       res.status(500).json(response.error || 'Some error occurred while updating the user.');
     }
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
+  } catch (err) {
+    res.status(500).json(err);
   }
 };
 
