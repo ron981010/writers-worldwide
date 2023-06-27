@@ -51,11 +51,6 @@ module.exports.getSingleUser = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
   try {
-    if (!req.body.username || !req.body.password) {
-      res.status(400).json({ message: 'Content can not be empty!' });
-      return;
-    }
-
     const password = req.body.password;
     const passwordCheck = passwordUtil.passwordPass(password);
     if (passwordCheck.error) {
@@ -63,15 +58,23 @@ module.exports.createUser = async (req, res) => {
       return;
     }
 
-    const user = new User(req.body);
-    user
-      .save()
-      .then((data) => {
-        res.status(201).send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({ message: err.message || 'Some error occurred while creating the user.' });
-      });
+    const user = {
+      username: req.body.username,
+      fullName: req.body.fullName,
+      email: req.body.email,
+      password: req.body.password,
+      biography: req.body.biography,
+      socialNetworks: req.body.socialNetworks
+    };
+
+    const db = mongodb.getDb();
+    const response = await db.collection('users').insertOne(user);
+    
+    if (response.acknowledged) {
+      res.status(201).json(response);
+    } else {
+      res.status(500).json(response.error || 'Some error occurred while creating the user.');
+    }
   } catch (err) {
     res.status(500).json(err);
   }
