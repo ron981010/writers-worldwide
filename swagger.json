@@ -5,10 +5,10 @@
     "description": "Description",
     "version": "1.0.0"
   },
-  "host": "writers-worlwide.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/api-docs": {
@@ -23,7 +23,7 @@
     },
     "/users/": {
       "get": {
-        "description": "",
+        "description": "See all users in our platform",
         "produces": [
           "application/json"
         ],
@@ -34,7 +34,7 @@
         }
       },
       "post": {
-        "description": "",
+        "description": "Create a new user :)",
         "parameters": [
           {
             "name": "body",
@@ -76,7 +76,7 @@
     },
     "/users/{id}": {
       "get": {
-        "description": "",
+        "description": "find a user by id and his poems",
         "parameters": [
           {
             "name": "id",
@@ -98,7 +98,7 @@
         }
       },
       "put": {
-        "description": "",
+        "description": "Update user information",
         "parameters": [
           {
             "name": "id",
@@ -136,7 +136,7 @@
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "Update user information"
           },
           "500": {
             "description": "Internal Server Error"
@@ -144,7 +144,7 @@
         }
       },
       "delete": {
-        "description": "",
+        "description": "Delete a user",
         "parameters": [
           {
             "name": "id",

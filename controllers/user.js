@@ -51,12 +51,13 @@ module.exports.getSingleUser = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
   try {
+
     const password = req.body.password;
     const passwordCheck = passwordUtil.passwordPass(password);
     if (passwordCheck.error) {
       res.status(400).json({ message: passwordCheck.error });
       return;
-    }
+    }  
 
     const user = {
       username: req.body.username,
@@ -66,10 +67,7 @@ module.exports.createUser = async (req, res) => {
       biography: req.body.biography,
       socialNetworks: req.body.socialNetworks
     };
-
-    const db = mongodb.getDb();
-    const response = await db.collection('users').insertOne(user);
-    
+    const response = await mongodb.getDb().db().collection('users').insertOne(user);
     if (response.acknowledged) {
       res.status(201).json(response);
     } else {
@@ -82,6 +80,13 @@ module.exports.createUser = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   try {
+
+    const password = req.body.password;
+    const passwordCheck = passwordUtil.passwordPass(password);
+    if (passwordCheck.error) {
+      res.status(400).json({ message: passwordCheck.error });
+      return;
+    }
     
     const userId = new ObjectId(req.params.id);
     const user = {

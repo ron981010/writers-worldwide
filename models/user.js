@@ -1,29 +1,15 @@
 module.exports = (mongoose) => {
     const userSchema = mongoose.Schema({
-      username: {
-        type: String,
-      },
-      fullName: {
-        type: String,
-      },
-      email: {
-        type: String,
-      },
-      password: {
-        type: String,
-      },
-      biography: {
-        type: String,
-      },
-      socialNetworks: {
-        twitter: {
-          type: String,
-        },
-        instagram: {
-          type: String,
-        },
-      },
-    });
-  
+      username: String,
+      fullName: String,
+      email: String,
+      password: String,
+      biography: String,
+        socialNetworks: [{
+          twitter: String,
+          instagram: String,
+  }]
+});
+
     return mongoose.model('user', userSchema);
   };
