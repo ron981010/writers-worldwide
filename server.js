@@ -14,29 +14,24 @@ app
   .use(session({
     secret: "secret",
     resave: false,
-    saveUnInitializate: true,
-
+    saveUninitialized: true,
   }))
   .use(passport.initialize())
-
   .use(passport.session())
-
   .use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     next();
   })
-
-  .use(cors({ methods: ['GET', 'POST', 'DELETE', 'UPDATE', ' PUT', 'PATCH'] }))
+  .use(cors({ methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'] }))
   .use(cors({ origin: '*' }))
   .use("/", require("./routes/index.js"));
 
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: process.env.CALLCAK_URL,
+  callbackURL: process.env.CALLBACK_URL,
 },
-
-  function (accesToken, refreshToken, profile, done) {
+  function (accessToken, refreshToken, profile, done) { // Corrected spelling of accessToken
     return done(null, profile);
   }
 ));
@@ -49,7 +44,9 @@ passport.deserializeUser((id, done) => {
   done(null, user);
 });
 
-app.get('/', (req, res) => { res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName}` : "Logged out") })
+app.get('/', (req, res) => {
+  res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName}` : "Logged out");
+});
 
 app.get('/github/callback', passport.authenticate('github', { failureRedirect: '/api-docs', session: false }),
   (req, res) => {
