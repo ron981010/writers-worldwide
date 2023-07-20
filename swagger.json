@@ -11,6 +11,26 @@
     "https"
   ],
   "paths": {
+    "/login": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api-docs": {
       "get": {
         "description": "",
@@ -23,18 +43,21 @@
     },
     "/users/": {
       "get": {
-        "description": "See all users in our platform",
+        "description": "",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "description": "Create a new user :)",
+        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -42,6 +65,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "password": {
+                  "example": "any"
+                },
                 "username": {
                   "example": "any"
                 },
@@ -49,9 +75,6 @@
                   "example": "any"
                 },
                 "email": {
-                  "example": "any"
-                },
-                "password": {
                   "example": "any"
                 },
                 "biography": {
@@ -68,6 +91,12 @@
           "201": {
             "description": "Created"
           },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -76,7 +105,7 @@
     },
     "/users/{id}": {
       "get": {
-        "description": "find a user by id and his poems",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -98,7 +127,7 @@
         }
       },
       "put": {
-        "description": "Update user information",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -112,6 +141,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "password": {
+                  "example": "any"
+                },
                 "username": {
                   "example": "any"
                 },
@@ -119,9 +151,6 @@
                   "example": "any"
                 },
                 "email": {
-                  "example": "any"
-                },
-                "password": {
                   "example": "any"
                 },
                 "biography": {
@@ -136,7 +165,13 @@
         ],
         "responses": {
           "204": {
-            "description": "Update user information"
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -144,7 +179,7 @@
         }
       },
       "delete": {
-        "description": "Delete a user",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -157,8 +192,24 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/events/": {
+      "get": {
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
