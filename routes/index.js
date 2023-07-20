@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.use('/', require('./swagger'));
 router.use('/users', require('./users'));
+router.use('/events', require('./events'));
 
 router.get('/login', passport.authenticate('github'), (req, res) => { });
 
